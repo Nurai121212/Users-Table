@@ -7,6 +7,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [select, setSelect] = useState("phone");
 
+  //Колонки для таблицы
   const columns = ["name", "email", ["phone", "website", "username"]];
 
   const handleChange = (e) => {
@@ -30,23 +31,25 @@ function App() {
         <table className="users-table">
           <thead>
             <tr>{columns.map((item, i) => {
-                return(
-                  <th key={i}>
-                    {!Array.isArray(item) ? item : 
-                      <select value={select} onChange={handleChange}>
-                        {item.map((item, i) => {
-                          return(
-                            <option value={item} key={i}>{item}</option>
-                          )
-                        })}
-                      </select>}
-                  </th>
+              return(
+                //Проверка на вложенный массив для всплывающей колонки
+                <th key={i}>
+                  {!Array.isArray(item) ? item : 
+                    <select value={select} onChange={handleChange}>
+                      {item.map((item, i) => {
+                        return(
+                          <option value={item} key={i}>{item}</option>
+                        )
+                      })}
+                    </select>}
+                </th>
                 )
               })}
             </tr>
           </thead>
           <tbody>
             {items.map(item => {
+              //Значения последней колонки зависят от состояния 
               return(
                 <tr key={item.id}>
                   <td>{item.name}</td>
